@@ -1,0 +1,6 @@
+from django.db import migrations,models
+import django.db.models.deletion
+class Migration(migrations.Migration):
+ initial=True
+ dependencies=[]
+ operations=[migrations.CreateModel(name='Reading',fields=[('id',models.BigAutoField(auto_created=True,primary_key=True,serialize=False,verbose_name='ID')),('received_at',models.DateTimeField(auto_now_add=True,db_index=True)),('station_id',models.CharField(default='CHIM-01',max_length=64)),('water_level_cm',models.FloatField()),('soil_moisture_pct',models.FloatField()),('rain_detected',models.BooleanField()),('temperature_c',models.FloatField(blank=True,null=True)),('humidity_pct',models.FloatField(blank=True,null=True)),('risk',models.CharField(choices=[('NORMAL','NORMAL'),('WARNING','WARNING'),('CRITICAL','CRITICAL')],max_length=12)),('simulated',models.BooleanField(default=False)),('packet_id',models.CharField(blank=True,max_length=80))],options={'ordering':['-received_at']}),migrations.CreateModel(name='Alert',fields=[('id',models.BigAutoField(auto_created=True,primary_key=True,serialize=False,verbose_name='ID')),('created_at',models.DateTimeField(auto_now_add=True)),('severity',models.CharField(max_length=12)),('message',models.CharField(max_length=250)),('reading',models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,related_name='alerts',to='monitor.reading'))],options={'ordering':['-created_at']})]
